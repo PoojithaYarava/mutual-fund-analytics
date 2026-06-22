@@ -40,6 +40,7 @@ def run_master_orchestration():
         "etl/aggregations_metrics.py",
         "etl/portfolio_concentration.py",
         "etl/sip_backtester.py",
+        "etl/benchmark_correlation.py",
         "tests/test_warehouse.py" 
     ]
     
