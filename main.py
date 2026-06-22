@@ -37,7 +37,9 @@ def run_master_orchestration():
         "etl/etl_pipeline.py",         
         "etl/eda_and_quality.py",      
         "etl/risk_analytics.py",       
-        "etl/aggregations_metrics.py"  
+        "etl/aggregations_metrics.py",
+        "etl/portfolio_concentration.py",  
+        "tests/test_warehouse.py" 
     ]
     
     for step_number, script_path in enumerate(pipeline_execution_chain, start=1):
