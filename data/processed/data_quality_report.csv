@@ -1,0 +1,6 @@
+Metric,Value,Status
+Total NAV Records Analyzed,46000,Pass
+Missing/Null NAV values,0,Pass
+Anomalous NAV values (<= 0),0,Pass
+Total Transaction Log Ledger Count,32778,Pass
+Anomalous Transaction Amounts (<= 0),0,Pass
