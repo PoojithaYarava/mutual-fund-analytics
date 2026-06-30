@@ -36,9 +36,9 @@ def get_nav_history(scheme_code):
             
             df = pd.DataFrame(nav_data)
             df["scheme_code"] = scheme_code
-            
-            #Standardize columns
-            df = df.rename(columns={"nav": "nav_values"})
+
+            # Standardize the API payload so it matches the rest of the pipeline.
+            df = df.rename(columns={"nav": "nav_value"})
             
             #save to cache
             df.to_csv(cache_path, index=False)
@@ -74,9 +74,14 @@ def run_extraction():
         except Exception as e:
             print(f"Error reading file {file}: {e}")
     
-    # Mocking execution for sample scheme codes (e.g., 40 schemes can be looped here)
-    # Let's test with a prominent Indian Mutual Fund scheme code (e.g., 119551 = HDFC Top 100)
-    test_schemes = ["119551"] 
+    # Fetch the five schemes explicitly called out in the capstone brief.
+    test_schemes = [
+        "119551",  # SBI Bluechip
+        "120503",  # ICICI Prudential Bluechip
+        "118632",  # Nippon India Large Cap
+        "119092",  # Axis Bluechip
+        "120841",  # Kotak Bluechip
+    ]
     print("Initializing API consumption engine...")
     for scheme in test_schemes:
         get_nav_history(scheme)

@@ -45,10 +45,10 @@ def run_portfolio_concentration_analytics():
     df_portfolio_facts = pd.merge(concentration_metrics, dominant_sector, on='amfi_code')
     
     # 3. Load results into the SQLite Database Warehouse as an Analytical Fact table
-    df_portfolio_facts.to_sql('fact_portfolio_concentration', engine, if_exists='replace', index=False)
+    df_portfolio_facts.to_sql('fact_portfolio_concentration', engine, if_exists='append', index=False)
     print(" Saved processed analytics calculations into table: fact_portfolio_concentration")
     
-    # 4. Generate an industry-wide sector density footprint to guide allocation strategy
+    # 4. Generate an industry-wide sector density footprint for allocation analysis
     sector_density = df_holdings.groupby('sector')['market_value_cr'].sum().reset_index()
     sector_density['allocation_density_pct'] = ((sector_density['market_value_cr'] / sector_density['market_value_cr'].sum()) * 100).round(2)
     sector_density = sector_density.sort_values('allocation_density_pct', ascending=False)

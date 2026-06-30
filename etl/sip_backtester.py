@@ -57,7 +57,7 @@ def run_sip_backtest_simulation():
     df_backtest = pd.DataFrame(backtest_results)
     
     # Save the backtest results to the SQLite Database as an analytical report table
-    df_backtest.to_sql('report_sip_backtest_simulation', engine, if_exists='replace', index=False)
+    df_backtest.to_sql('report_sip_backtest_simulation', engine, if_exists='append', index=False)
     print(" Loaded backtested simulation matrices into table: report_sip_backtest_simulation")
     
     # Export flat sheet for management review

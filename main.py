@@ -13,23 +13,23 @@ def execute_pipeline_module(script_relative_path):
     print("="*60)
     
     if not os.path.exists(full_script_path):
-        print(f"❌ Configuration Error: Script not found at target path: {full_script_path}")
+        print(f"ERROR: Script not found at target path: {full_script_path}")
         return False
         
     # Trigger script via active virtual environment Python execution token
     process = subprocess.run([sys.executable, full_script_path], capture_output=False, text=True)
     
     if process.returncode != 0:
-        print(f"💥 Critical Failure: Execution broke inside component process: {script_name}")
+        print(f"CRITICAL FAILURE: Execution broke inside component process: {script_name}")
         return False
         
-    print(f"✅ Module Completed Successfully: {script_name}")
+    print(f"Module completed successfully: {script_name}")
     return True
 
 def run_master_orchestration():
-    print("🚀="*30)
+    print("=="*30)
     print("   MUTUAL FUND ANALYTICS PLATFORM - FULL PRODUCTION PIPELINE RUNNER")
-    print("🚀="*30)
+    print("=="*30)
     
     # Define strict sequential dependency execution chain
     pipeline_execution_chain = [
@@ -41,6 +41,7 @@ def run_master_orchestration():
         "etl/portfolio_concentration.py",
         "etl/sip_backtester.py",
         "etl/benchmark_correlation.py",
+        "etl/advanced_analytics.py",
         "tests/test_warehouse.py" 
     ]
     
@@ -49,12 +50,12 @@ def run_master_orchestration():
         success = execute_pipeline_module(script_path)
         
         if not success:
-            print("\n🚨 PIPELINE TERMINATED: Sequence broken due to downstream compilation error. Review system logs. 🚨")
+            print("\nPIPELINE TERMINATED: Sequence broken due to downstream compilation error. Review system logs.")
             sys.exit(1)
             
-    print("\n🎉="*30)
+    print("\n=="*30)
     print("   SUCCESS: COMPLETE MULTI-STAGE ANALYTICS WAREHOUSE DEPLOYED")
-    print("🎉="*30)
+    print("=="*30)
 
 if __name__ == "__main__":
     run_master_orchestration()

@@ -33,7 +33,7 @@ def run_advanced_aggregations():
     FROM fact_nav;
     """
     df_nav_trends = pd.read_sql(query_nav_moving_avg, engine)
-    df_nav_trends.to_sql('report_nav_trends', engine, if_exists='replace', index=False)
+    df_nav_trends.to_sql('report_nav_trends', engine, if_exists='append', index=False)
     print(f" Loaded {len(df_nav_trends)} records into trend layer: report_nav_trends")
 
     # 2. WINDOW FUNCTION 2: Running cumulative transaction allocations per unique investor
@@ -66,7 +66,7 @@ def run_advanced_aggregations():
     FROM ordered_txns;
     """
     df_investor_ledger = pd.read_sql(query_investor_cum_sum, engine)
-    df_investor_ledger.to_sql('report_investor_ledger', engine, if_exists='replace', index=False)
+    df_investor_ledger.to_sql('report_investor_ledger', engine, if_exists='append', index=False)
     print(f" Loaded {len(df_investor_ledger)} lines into ledger layer: report_investor_ledger")
 
     # 3. WINDOW FUNCTION 3: Month-on-Month Growth Deltas for Systematic Inflows using LAG()
@@ -81,7 +81,7 @@ def run_advanced_aggregations():
     FROM fact_sip;
     """
     df_sip_velocity = pd.read_sql(query_sip_mom_growth, engine)
-    df_sip_velocity.to_sql('report_sip_velocity', engine, if_exists='replace', index=False)
+    df_sip_velocity.to_sql('report_sip_velocity', engine, if_exists='append', index=False)
     print(f" Loaded {len(df_sip_velocity)} intervals into scale layer: report_sip_velocity")
 
     # 6. Save a local flat snapshot report for business audit reviews

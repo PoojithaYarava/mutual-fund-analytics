@@ -50,7 +50,7 @@ def run_performance_analytics():
     df_analytics_fact = df[analytics_cols]
     
     # 4. Load into the SQLite Database Warehouse as a new Analytical Fact table
-    df_analytics_fact.to_sql('fact_performance_analytics', engine, if_exists='replace', index=False)
+    df_analytics_fact.to_sql('fact_performance_analytics', engine, if_exists='append', index=False)
     print(" Saved processed analytics calculations into table: fact_performance_analytics")
     
     # 5. Generate an executive category-level risk summary matrix

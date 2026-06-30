@@ -6,7 +6,7 @@ DB_PATH = "D:/mutual-fund-analytics/data/processed/mf_analytics.db"
 
 def get_db_connection():
     if not os.path.exists(DB_PATH):
-        print(f"❌ Error: Database warehouse not found at {DB_PATH}. Please run your ETL pipeline first.")
+        print(f"ERROR: Database warehouse not found at {DB_PATH}. Please run your ETL pipeline first.")
         return None
     return sqlite3.connect(DB_PATH)
 
@@ -14,7 +14,7 @@ def view_top_performing_funds():
     conn = get_db_connection()
     if not conn: return
     
-    print("\n--- 🏆 TOP RISK-ADJUSTED MUTUAL FUND SCHEMES (TIER 1) ---")
+    print("\n--- TOP RISK-ADJUSTED MUTUAL FUND SCHEMES (TIER 1) ---")
     query = """
     SELECT scheme_name, category, alpha, beta, sharpe_ratio, performance_tier
     FROM fact_performance_analytics
@@ -32,7 +32,7 @@ def view_sip_growth_velocity():
     conn = get_db_connection()
     if not conn: return
     
-    print("\n--- 📈 RECENT SYSTEMATIC INVESTMENT PLAN (SIP) VELOCITY DELTAS ---")
+    print("\n--- RECENT SYSTEMATIC INVESTMENT PLAN (SIP) VELOCITY DELTAS ---")
     query = """
     SELECT month_period, sip_inflow_crore, computed_mom_growth_pct
     FROM report_sip_velocity
@@ -46,7 +46,7 @@ def check_warehouse_health_metrics():
     conn = get_db_connection()
     if not conn: return
     
-    print("\n--- 🔍 WAREHOUSE DATABASE HEALTH & INTEGRITY METRICS ---")
+    print("\n--- WAREHOUSE DATABASE HEALTH & INTEGRITY METRICS ---")
     cursor = conn.cursor()
     
     cursor.execute("SELECT COUNT(*) FROM dim_fund;")
@@ -84,10 +84,10 @@ def main_menu():
         elif choice == '3':
             check_warehouse_health_metrics()
         elif choice == '4':
-            print("\n👋 Terminating interface session. Goodbye!")
+            print("\nTerminating interface session. Goodbye!")
             break
         else:
-            print("❌ Invalid input selection. Please choose an options tier between 1 and 4.")
+            print("ERROR: Invalid input selection. Please choose an options tier between 1 and 4.")
 
 if __name__ == "__main__":
     main_menu()
